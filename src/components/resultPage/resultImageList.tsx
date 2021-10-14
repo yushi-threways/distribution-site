@@ -1,10 +1,13 @@
-import React, {FC, useState} from "react";
+import React, {FC, useState, useEffect} from "react";
+import {useParams} from "react-router-dom";
 import firebase from "../../firebase";
 import {TitleDate} from "../../types/types"
+
 
 const ImageItemList: FC = () =>  {
 
     const [data, setDate] = useState<TitleDate[]>([]);
+    const { keyword }= useParams();
 
     const getData = async (searchWord: string | undefined ) => {
         const db = firebase.firestore();
@@ -24,6 +27,10 @@ const ImageItemList: FC = () =>  {
 
         setDate(temporaryData as TitleDate[]);
     }
+
+    useEffect(() => {
+        getData(keyword);
+    },[]);
         
     return (
         <div>
