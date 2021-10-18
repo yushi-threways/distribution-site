@@ -4,7 +4,7 @@ import Button from "@material-ui/core/Button";
 import {createStyles, makeStyles} from "@material-ui/core/styles";
 
 import firebase from "../../firebase";
-import {TitleDate} from "../../types/types";
+import {TileDate} from "../../types/types";
 
 const useStyles = makeStyles(() => 
     createStyles({
@@ -26,14 +26,14 @@ const useStyles = makeStyles(() =>
 
 const ImageItemList: FC = () => {
 
-    const [data, setDate] = useState<TitleDate[]>([]);
+    const [data, setData] = useState<TileDate[]>([]);
     const { keyword }:any = useParams();
     const classes = useStyles();
     const history = useHistory();
 
     const getData = async (searchWord: string | undefined ) => {
         const db = firebase.firestore();
-        // 引数は取得すすコレクション名にする
+        // 引数は取得するコレクション名にする
         const titleDataRef = db.collection("titleData");
         // どのドキュメントのフィールドを取得するか指定
         // titleData コレクションから条件に合致したドキュメントを探す keyword
@@ -47,7 +47,7 @@ const ImageItemList: FC = () => {
             temporaryData.push(doc.data());
         })
 
-        setDate(temporaryData as TitleDate[]);
+        setData(temporaryData as TileDate[]);
     }
 
     useEffect(() => {
